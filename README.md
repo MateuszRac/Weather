@@ -1,1 +1,3 @@
-# Weather
+# Weather library by Mateusz Rac
+
+
