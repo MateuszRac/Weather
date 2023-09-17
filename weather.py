@@ -14,9 +14,17 @@ try:
     if response.status_code == 200:
         # Parse the JSON response
         data = response.json()
-
+        
+        
+        id_stacji = "12375"
+        
+        for stacja in data:
+            if stacja['id_stacji']==id_stacji:
+                print(stacja)
+        
+        
         # Print the JSON data
-        print(json.dumps(data, indent=4))
+        #print(json.dumps(data, indent=4))
     else:
         print(f"Failed to retrieve data. Status code: {response.status_code}")
 except requests.exceptions.RequestException as e:
