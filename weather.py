@@ -3,7 +3,8 @@
 import requests
 import json
 import pandas as pd
-
+from datetime import datetime
+import pytz
 
 # URL of the API
 url = "https://danepubliczne.imgw.pl/api/data/synop/"
@@ -16,14 +17,16 @@ try:
     if response.status_code == 200:
         # Parse the JSON response
         data = response.json()
-        
-        
+
+        # Get the current UTC datetime
+        utc_now = datetime.now(pytz.utc)
 
         df = pd.DataFrame.from_dict(data)
-        
+        df['temperatura'] = pd.to_numeric(df["temperatura"])
+        df = df.sort_values(by='temperatura', ascending=False)
         
         html = df.to_html()
-        
+        html = utc_now.strftime("%Y-%m-%d %H:%M:%S %Z")+"/n<br><br>"+html
         file = open(r'/var/www/html/index.html', "w")
         file.write(html)
         file.close()
