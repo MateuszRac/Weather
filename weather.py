@@ -2,6 +2,8 @@
 
 import requests
 import json
+import pandas as pd
+
 
 # URL of the API
 url = "https://danepubliczne.imgw.pl/api/data/synop/"
@@ -16,12 +18,15 @@ try:
         data = response.json()
         
         
-        id_stacji = "12375"
+
+        df = pd.DataFrame.from_dict(data)
         
-        for stacja in data:
-            if stacja['id_stacji']==id_stacji:
-                print(stacja)
         
+        html = df.to_html()
+        
+        file = open(r'/var/www/html/index.html', "w")
+        file.write(html)
+        file.close()
         
         # Print the JSON data
         #print(json.dumps(data, indent=4))
