@@ -26,7 +26,7 @@ try:
         df = df.sort_values(by='temperatura', ascending=False)
         
         html = df.to_html()
-        html = utc_now.strftime("%Y-%m-%d %H:%M:%S %Z")+"/n<br><br>"+html
+        html = utc_now.strftime("%Y-%m-%d %H:%M:%S %Z")+"<br><br>"+html
         file = open(r'/var/www/html/index.html', "w")
         file.write(html)
         file.close()
